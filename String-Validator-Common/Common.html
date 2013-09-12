@@ -1,0 +1,181 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>String::Validator::Common - Routines shared by String::Validator Modules.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+
+<!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#version">VERSION</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#string__validator__common_methods_and_usage">String::Validator::Common Methods and Usage</a></li>
+	<li><a href="#methods_string__validator__common_provides">Methods String::Validator::Common provides</a></li>
+	<ul>
+
+		<li><a href="#increaseerr">IncreaseErr</a></li>
+		<li><a href="#start">Start</a></li>
+		<li><a href="#length">Length</a></li>
+		<li><a href="#checkcommon">CheckCommon</a></li>
+		<li><a href="#check">Check</a></li>
+		<li><a href="#errstr__errcnt__string">Errstr, Errcnt, String</a></li>
+	</ul>
+
+	<li><a href="#author">AUTHOR</a></li>
+	<li><a href="#bugs">BUGS</a></li>
+	<li><a href="#support">SUPPORT</a></li>
+	<li><a href="#acknowledgements">ACKNOWLEDGEMENTS</a></li>
+	<li><a href="#license_and_copyright">LICENSE AND COPYRIGHT</a></li>
+</ul>
+
+<hr name="index" />
+</div>
+<!-- INDEX END -->
+
+<p>
+</p>
+<hr />
+<h1><a name="name">NAME</a></h1>
+<p>String::Validator::Common - Routines shared by String::Validator Modules.</p>
+<p>
+</p>
+<hr />
+<h1><a name="version">VERSION</a></h1>
+<p>Version 0.96</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>There are some methods common to all String::Validator Modules. By starting
+with this module other String::Validator Modules inherit these methods.</p>
+<p>
+</p>
+<hr />
+<h1><a name="string__validator__common_methods_and_usage">String::Validator::Common Methods and Usage</a></h1>
+<p>Modules Using String Validator Common use its' new method and then extend the
+attributes in their own new methods.</p>
+<pre>
+ use String::Validator::Common;
+ sub new {
+ my $class = shift ;
+ my $self = { @_ } ;
+ use base ( 'String::Validator::Common' ) ;
+ unless ( defined $self-&gt;{ some_param } )
+   { $self-&gt;{ some_param } = 'somedefault'; }
+ ...
+ bless $self , $class ;
+ return $self ;
+ }</pre>
+<p>
+</p>
+<hr />
+<h1><a name="methods_string__validator__common_provides">Methods String::Validator::Common provides</a></h1>
+<p>
+</p>
+<h2><a name="increaseerr">IncreaseErr</a></h2>
+<p>A String::Validator contains two error variables error and errstring. When an
+error is found, simply pass a brief description to this method to increment
+the errorcount, and append the present description to the errstring.</p>
+<pre>
+ if ( 1 != 2 ) { $self-&gt;IncreaseErr( qq /1 Still Doesn't equal 2!/ ) }</pre>
+<p>
+</p>
+<h2><a name="start">Start</a></h2>
+<p>This method initializes three key values: $self-&gt;{errstring} ,
+$self-&gt;{error}, and $self-&gt;{string} to NULL, 0, NULL. If no errors are found
+error and errstring will remain 0 and NULL. string will be used to hold
+the string being evaluated. Arguments are the
+string to be evaluated and optionally a second string to be compared with the
+first. If the strings are mismatched the sub will return 99, and string will
+remain NULL, the inheriting module should immediately return the error and
+not contine.</p>
+<p>
+</p>
+<h2><a name="length">Length</a></h2>
+<p>Checks $self-&gt;{ string } against $self-&gt;{ min_length } and $self-&gt;{ max_length }
+If the length checks pass it returns 0, if one fails it immediately returns
+the incremented value of error.</p>
+<p>
+</p>
+<h2><a name="checkcommon">CheckCommon</a></h2>
+<p>CheckCommon is just a shortcut to run Start and Length.</p>
+<p>
+</p>
+<h2><a name="check">Check</a></h2>
+<p>A stub for testing, overridden in actual string validator classes.</p>
+<p>
+</p>
+<h2><a name="errstr__errcnt__string">Errstr, Errcnt, String</a></h2>
+<p>Provides these methods for inheritance as described in the String::Validator documentation.</p>
+<p>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>John Karr, <code>&lt;brainbuz at brainbuz.org&gt;</code></p>
+<p>
+</p>
+<hr />
+<h1><a name="bugs">BUGS</a></h1>
+<p>Please report any bugs or feature requests to <code>bug-string-validator-email at rt.cpan.org</code>, or through
+the web interface at <a href="http://rt.cpan.org/NoAuth/ReportBug.html?Queue=String-Validator-Email">http://rt.cpan.org/NoAuth/ReportBug.html</a>.  I will be notified, and then you'll
+automatically be notified of progress on your bug as I make changes.</p>
+<p>
+</p>
+<hr />
+<h1><a name="support">SUPPORT</a></h1>
+<p>You can find documentation for this module with the perldoc command.</p>
+<pre>
+    perldoc String::Validator::Email</pre>
+<p>You can also look for information at:</p>
+<ul>
+<li><strong><a name="tracker" class="item">RT: CPAN's request tracker (report bugs here)</a></strong>
+
+<p><a href="http://rt.cpan.org/NoAuth/Bugs.html?Dist=String-Validator-Email">http://rt.cpan.org/NoAuth/Bugs.html</a></p>
+</li>
+<li><strong><a name="annocpan_annotated_cpan_documentation" class="item">AnnoCPAN: Annotated CPAN documentation</a></strong>
+
+<p><a href="http://annocpan.org/dist/String-Validator-Email">http://annocpan.org/dist/String-Validator-Email</a></p>
+</li>
+<li><strong><a name="cpan_ratings" class="item">CPAN Ratings</a></strong>
+
+<p><a href="http://cpanratings.perl.org/d/String-Validator-Email">http://cpanratings.perl.org/d/String-Validator-Email</a></p>
+</li>
+<li><strong><a name="search_cpan" class="item">Search CPAN</a></strong>
+
+<p><a href="http://search.cpan.org/dist/String-Validator-Email/">http://search.cpan.org/dist/String-Validator-Email/</a></p>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="acknowledgements">ACKNOWLEDGEMENTS</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="license_and_copyright">LICENSE AND COPYRIGHT</a></h1>
+<p>Copyright 2012 John Karr.</p>
+<p>This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; version 3 or at your option
+any later version.</p>
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</p>
+<p>A copy of the GNU General Public License is available in the source tree;
+if not, write to the Free Software Foundation, Inc.,
+59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+</body>
+
+</html>
