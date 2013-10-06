@@ -4,7 +4,9 @@ use 5.006;
 use strict;
 use warnings;
 
-=head1 String::Validator
+=head1 NAME 
+
+String::Validator
 
 =head2 A Collection of Routines for validating strings
 
