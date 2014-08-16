@@ -173,6 +173,24 @@ attributes in their own new methods.
 
 =head1 Methods String::Validator::Common provides
 
+=head2 errcnt, errstr, new, string, version
+
+These methods are described in the String::Validator Master Module and implemented here.
+
+=head2 Check
+
+Check is a stub subroutine, that you will replace in any Validator Module you write
+with the code to validate the string. Is_Valid and IsNot_Valid base their results on Check. Check returns $self->{error}, if there are no errors this will be 0. When you
+replace Check in your Validator Module you should implement the same behaviour so that IsValid and IsNot_Valid work. 
+
+=head2 IsNot_Valid
+
+Takes a string and optionally a second string (if you want to make sure two copies of a string are identical as well). Runs the Check subroutine and returns $self->{errstring} if there is an error, otherwise it returns 0. This will evaluate to true if there was an error and false if the string was valid.
+
+=head2 Is_Valid
+
+Takes a string and optionally a second string (if you want to make sure two copies of a string are identical as well). Runs the Check subroutine and returns 1 if Check returned 0, and 0 if Check returned a true value. If you want ->Errcnt() count or ->Errstr you will need to request them via there methods before another string is processed.
+
 =head2 IncreaseErr
 
 A String::Validator contains two error variables error and errstring. When an
@@ -202,13 +220,17 @@ the incremented value of error.
 
 CheckCommon is just a shortcut to run Start and Length.
 
-=head2 Check
-
-A stub for testing, overridden in actual string validator classes.
-
 =head2 Errstr, Errcnt, String
 
 Provides these methods for inheritance as described in the String::Validator documentation.
+
+=head2 Version
+
+Version returns the internal version number of the module.
+
+=head2 version, is_valid, isnot_valid, errcnt, errstr
+
+Allow LowerCase invokation of these methods.
 
 =cut
 

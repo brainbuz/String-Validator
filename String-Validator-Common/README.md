@@ -37,6 +37,24 @@ attributes in their own new methods.
 
 # Methods String::Validator::Common provides
 
+## errcnt, errstr, new, string, version
+
+These methods are described in the String::Validator Master Module and implemented here.
+
+## Check
+
+Check is a stub subroutine, that you will replace in any Validator Module you write
+with the code to validate the string. Is\_Valid and IsNot\_Valid base their results on Check. Check returns $self->{error}, if there are no errors this will be 0. When you
+replace Check in your Validator Module you should implement the same behaviour so that IsValid and IsNot\_Valid work. 
+
+## IsNot\_Valid
+
+Takes a string and optionally a second string (if you want to make sure two copies of a string are identical as well). Runs the Check subroutine and returns $self->{errstring} if there is an error, otherwise it returns 0. This will evaluate to true if there was an error and false if the string was valid.
+
+## Is\_Valid
+
+Takes a string and optionally a second string (if you want to make sure two copies of a string are identical as well). Runs the Check subroutine and returns 1 if Check returned 0, and 0 if Check returned a true value. If you want ->Errcnt() count or ->Errstr you will need to request them via there methods before another string is processed.
+
 ## IncreaseErr
 
 A String::Validator contains two error variables error and errstring. When an
@@ -66,13 +84,17 @@ the incremented value of error.
 
 CheckCommon is just a shortcut to run Start and Length.
 
-## Check
-
-A stub for testing, overridden in actual string validator classes.
-
 ## Errstr, Errcnt, String
 
 Provides these methods for inheritance as described in the String::Validator documentation.
+
+## Version
+
+Version returns the internal version number of the module.
+
+## version, is\_valid, isnot\_valid, errcnt, errstr
+
+Allow LowerCase invokation of these methods.
 
 # AUTHOR
 
