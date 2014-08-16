@@ -90,18 +90,9 @@ about dependency on other modules that do validation just suggest.
 If you read the sub-modules you'll see that many of them are just
 wrappers around other validation modules.
 
-
-=head1 VERSION
-
-Version 0.97
-
 =cut
 
-our $VERSION = '0.97';
-
 return 0;
-
-
 
 =head1 AUTHOR
 
