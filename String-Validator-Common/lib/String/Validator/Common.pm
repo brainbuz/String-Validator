@@ -1,10 +1,16 @@
 package String::Validator::Common;
 
-use 5.006;
+# ABSTRACT: Base Module for creating new String::Validator Modules.
+
+use 5.008;
 use strict;
 use warnings;
 
+our $VERSION = 1.00;
+
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -12,77 +18,88 @@ String::Validator::Common - Routines shared by String::Validator Modules.
 
 =head1 VERSION
 
-Version 0.98
+version 1.00
+
+=head1 DESCRIPTION
+
+A base module for use in creating new String Validators.
 
 =cut
 
-our $VERSION = '0.98';
-
 sub new {
-    my $class = shift ;
-    my $self = { @_ } ;
-    bless $self , $class;
-    $self->{ class } = $class ;
-    $self->_Init() ;
-    return $self ;
+    my $class = shift;
+    my $self  = {@_};
+    bless $self, $class;
+    $self->{class} = $class;
+    $self->_Init();
+    return $self;
 }
 
 sub IncreaseErr {
-      my $self = shift ;
-      $self->{ errstring } .= "@_\n" ;
-      $self->{ error }++ ;
-      } ;
+    my $self = shift;
+    $self->{errstring} .= "@_\n";
+    $self->{error}++;
+}
 
 # Every time we get a new request
 # these values need to be reset from the
 # previous request.
-sub _Init  {
-    my $self = shift ;
+sub _Init {
+    my $self = shift;
     $self->{errstring} = '';
-    $self->{error} = 0;
-    $self->{string} = '' ;
-    } ;
+    $self->{error}     = 0;
+    $self->{string}    = '';
+}
 
 sub Start {
-    my ( $self, $string1, $string2 ) = @_ ;
-    $self->_Init() ;
-# String comparison, must not fail if no string2 is provided.
-# string2 is also available for destructive operations.
-# Failing the string match alse necessitates immediate
-# error return as the other tests are meaningless as
-# we cannot know if either or neither string is the password.
-	no warnings 'uninitialized' ;
-    if ( 0 == length $string2 ) {  }
-    elsif ( $string1  ne $string2 ) {
-		$self->IncreaseErr( 'Strings don\'t match.' ) ;
-		return 99 ;
-	}
-    $self->{string} = $string1 ;
-    return 0 ;
+    my ( $self, $string1, $string2 ) = @_;
+    $self->_Init();
+
+    # String comparison, must not fail if no string2 is provided.
+    # string2 is also available for destructive operations.
+    # Failing the string match alse necessitates immediate
+    # error return as the other tests are meaningless as
+    # we cannot know if either or neither string is the password.
+    no warnings 'uninitialized';
+    if ( 0 == length $string2 ) { }
+    elsif ( $string1 ne $string2 ) {
+        $self->IncreaseErr('Strings don\'t match.');
+        return 99;
     }
+    $self->{string} = $string1;
+    return 0;
+}
 
 sub Length {
-    my $self = shift ;
-    my $string = $self->{ string } ;
-    if ( length( $self->{ string } ) < $self->{min_len} ) {
-		$self->IncreaseErr( "Length of " . length( $self->{ string } ) .
-		" Does not meet requirement: Min Length " . $self->{min_len} . "." ) ;
-		return $self->{ error } ;
-		}
+    my $self   = shift;
+    my $string = $self->{string};
+    if ( length( $self->{string} ) < $self->{min_len} ) {
+        $self->IncreaseErr( "Length of "
+              . length( $self->{string} )
+              . " Does not meet requirement: Min Length "
+              . $self->{min_len}
+              . "." );
+        return $self->{error};
+    }
     if ( $self->{max_len} ) {
-            if ( length( $self->{ string } ) > $self->{max_len} ) {
-		$self->IncreaseErr( "Length of " . length( $self->{ string } ) .
-		" Does not meet requirement: Max Length " . $self->{max_len} . "." ) ;
-		return $self->{ error } ;
-	}       }
-    return 0 ;
+        if ( length( $self->{string} ) > $self->{max_len} ) {
+            $self->IncreaseErr( "Length of "
+                  . length( $self->{string} )
+                  . " Does not meet requirement: Max Length "
+                  . $self->{max_len}
+                  . "." );
+            return $self->{error};
+        }
+    }
+    return 0;
 }
 
 sub CheckCommon {
-    my ( $self, $string1, $string2 ) = @_ ;
+    my ( $self, $string1, $string2 ) = @_;
     if ( $self->Start( $string1, $string2 ) ) {
-		return $self->{ error } }
-    if ( $self->Length ) { return $self->{ error } }
+        return $self->{error};
+    }
+    if ( $self->Length ) { return $self->{error} }
     return 0;
 }
 
@@ -91,56 +108,51 @@ sub CheckCommon {
 # Takes 2 strings and runs Start.
 # If the strings match it returns 0, else 1.
 sub Check {
-    my ( $self, $string1, $string2 ) = @_ ;
-    my $started = $self->Start( $string1, $string2 ) ;
-    return $self->{ error } ;
-    }
+    my ( $self, $string1, $string2 ) = @_;
+    my $started = $self->Start( $string1, $string2 );
+    return $self->{error};
+}
 
-sub Errcnt  {
-	my $self = shift ;
-	return $self->{ error }
-	}
+sub Errcnt {
+    my $self = shift;
+    return $self->{error};
+}
 
-sub Errstr  {
-	my $self = shift ;
-	return $self->{ errstring }
-	}	
+sub Errstr {
+    my $self = shift;
+    return $self->{errstring};
+}
 
 sub IsNot_Valid {
-	( my $self, my $string1, my $string2 ) = @_ ;
-	if ( $self->Check( $string1, $string2 )) { return $self->{ errstring } }
-	else { return 0 }
-	}
+    ( my $self, my $string1, my $string2 ) = @_;
+    if   ( $self->Check( $string1, $string2 ) ) { return $self->{errstring} }
+    else                                        { return 0 }
+}
 
-sub Is_Valid{
-	( my $self, my $string1, my $string2 ) = @_ ;
-	if ( $self->Check( $string1, $string2 )) { return 0 }
-	else { return 1 }
-	}
+sub Is_Valid {
+    ( my $self, my $string1, my $string2 ) = @_;
+    if   ( $self->Check( $string1, $string2 ) ) { return 0 }
+    else                                        { return 1 }
+}
 
 sub String {
-	my $self = shift ;
-	return $self->{ string } ;
-	}
+    my $self = shift;
+    return $self->{string};
+}
 
 # Serious todo version needs to return all SV class versions
 # for loaded modules.
 sub Version { return $VERSION }
-	
-# The lowercase version of methods.	
-sub errcnt { my $self = shift ; $self->Errcnt() }
-sub errstr { my $self = shift ; $self->Errstr() }	
-sub isnot_valid { my $self = shift ; $self->IsNot_Valid() }
-sub is_valid { my $self = shift ; $self->Is_Valid() }
-sub string { my $self = shift ; $self->String() }
+
+# The lowercase version of methods.
+sub errcnt      { my $self = shift; $self->Errcnt() }
+sub errstr      { my $self = shift; $self->Errstr() }
+sub isnot_valid { my $self = shift; $self->IsNot_Valid() }
+sub is_valid    { my $self = shift; $self->Is_Valid() }
+sub string      { my $self = shift; $self->String() }
 sub version { &String::Validator::Common::Version() }
 
 =pod
-
-=head1 SYNOPSIS
-
-There are some methods common to all String::Validator Modules. By starting
-with this module other String::Validator Modules inherit these methods.
 
 =head1 String::Validator::Common Methods and Usage
 
@@ -198,71 +210,6 @@ A stub for testing, overridden in actual string validator classes.
 
 Provides these methods for inheritance as described in the String::Validator documentation.
 
-=head1 AUTHOR
-
-John Karr, C<< <brainbuz at brainbuz.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-string-validator-email at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=String-Validator-Email>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc String::Validator::Email
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=String-Validator-Email>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/String-Validator-Email>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/String-Validator-Email>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/String-Validator-Email/>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
-
-=head1 LICENSE AND COPYRIGHT
-
-Copyright 2012 John Karr.
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; version 3 or at your option
-any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-A copy of the GNU General Public License is available in the source tree;
-if not, write to the Free Software Foundation, Inc.,
-59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-
 =cut
 
-1; # End of String::Validator::Common
+1;    # End of String::Validator::Common
