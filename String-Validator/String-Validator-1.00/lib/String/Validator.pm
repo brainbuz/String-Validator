@@ -1,14 +1,37 @@
 package String::Validator;
-
+$String::Validator::VERSION = '1.00';
 use 5.006;
 use strict;
 use warnings;
 
 # ABSTRACT: A Collection of Routines for validating and transforming strings
 
+
+return 0;
+
+1; # End of Validator
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+String::Validator - A Collection of Routines for validating and transforming strings
+
+=head1 VERSION
+
+version 1.00
+
 =head1 NAME 
 
 String::Validator
+
+=head1 VERSION
+
+version 1.00
 
 =head1 Description
 
@@ -78,7 +101,7 @@ and will be documented in their own POD.
      maybe
  if ( $Validator->IsNot_Valid('ThisString', 'RepeatThisString') { do something }
  say  $Validator->String ;
- 
+
 =head2 CamelCase lowercase
 
 The base class String::Validator::Common provides both the CamelCase and lowercase
@@ -96,8 +119,16 @@ about dependency on other modules that do validation just suggest.
 If you read the sub-modules you'll see that many of them are just
 wrappers around other validation modules.
 
+=head1 AUTHOR
+
+John Karr <brainbuz@brainbuz.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2014 by John Karr.
+
+This is free software, licensed under:
+
+  The GNU General Public License, Version 3, June 2007
+
 =cut
-
-return 0;
-
-1; # End of Validator
