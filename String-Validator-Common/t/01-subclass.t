@@ -27,13 +27,13 @@ SKIP: {
             bless $self, $class;
             return $self;
         }
-        sub now { return localtime() }
+        sub opus { return 'penguin' }
 
     package notestclass;
     use Test::More; 
     my $newclass = String::Validator::Common::TestClass->new();
     ok( $newclass, "newclass evaluates as true" );
-    is( $newclass->now(), localtime(), "now method returns localtime" );
+    is( $newclass->opus(), 'penguin' , "opus method returns penguin" );
     is( $newclass->isa('String::Validator::Common::TestClass'),
         1, 'new object isa String::Validator::Common::TestClass' );
     is( $String::Validator::Common::TestClass::VERSION, 

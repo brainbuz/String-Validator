@@ -4,22 +4,25 @@ String::Validator::Common - Base Module for creating new String::Validator Modul
 
 # VERSION
 
-version 1.00
+version 1.01
 
 # DESCRIPTION
 
 A base module for use in creating new String Validators.
 
-# NAME
-
-String::Validator::Common - Routines shared by String::Validator Modules.
-
 # String::Validator::Common Methods and Usage
+
+## Public Methods
+
+The Following Methods are meant to be provided by sublcasses as Public Methods: **IsValid, IsNotValid, Errstr, Errcnt, String**.
+
+## Semi-Private Methods
+
+The remaining methods are meant for use within subclasses of String::Validator::Common. They are not preceded with \_ characters because they are being exposed from SVC to the inheriting class.
 
 ## new
 
-Modules Using String Validator Common use its' new method and then extend the
-attributes in their own new methods.
+Modules Using String Validator Common extend the attributes in their own new methods.
 
     use String::Validator::Common;
     sub new {
@@ -32,8 +35,6 @@ attributes in their own new methods.
     bless $self , $class ;
     return $self ;
     }
-
-# Methods String::Validator::Common provides
 
 ## Check
 
@@ -55,7 +56,7 @@ A String::Validator contains two error variables error and errstring. When an
 error is found, simply pass a brief description to this method to increment
 the errorcount, and append the present description to the errstring.
 
-    if ( 1 != 2 ) { $self->IncreaseErr( qq /1 Still Doesn't equal 2!/ ) }
+    if ( 1 != 2 ) { $self->IncreaseErr( q/1 Still Doesn't equal 2!/ ) }
 
 ## Start
 
@@ -66,7 +67,7 @@ the string being evaluated. Arguments are the
 string to be evaluated and optionally a second string to be compared with the
 first. If the strings are mismatched the sub will return 99, and string will
 remain NULL, the inheriting module should immediately return the error and
-not contine.
+not contine. 
 
 ## Length
 
@@ -85,6 +86,10 @@ Provides these methods for inheritance as described in the String::Validator doc
 ## is\_valid, isnot\_valid, errcnt, errstr, string
 
 Permit LowerCase invokation of these methods.
+
+# BUGS
+
+Please report any bugs or feature requests through the web interface at [https://github.com/brainbuz/String-Validator/issues](https://github.com/brainbuz/String-Validator/issues). I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
 # AUTHOR
 

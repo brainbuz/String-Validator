@@ -6,20 +6,6 @@ use 5.008;
 use strict;
 use warnings;
 
-=pod
-
-=encoding UTF-8
-
-=head1 NAME
-
-String::Validator::Common - Routines shared by String::Validator Modules.
-
-=head1 DESCRIPTION
-
-A base module for use in creating new String Validators.
-
-=cut
-
 sub new {
     my $class = shift;
     my $self  = {@_};
@@ -143,12 +129,25 @@ sub string      { my $self = shift; $self->String() }
 
 =pod
 
+=encoding UTF-8
+
+=head1 DESCRIPTION
+
+A base module for use in creating new String Validators.
+
 =head1 String::Validator::Common Methods and Usage
+
+=head2 Public Methods
+
+The Following Methods are meant to be provided by sublcasses as Public Methods: B<IsValid, IsNotValid, Errstr, Errcnt, String>.
+
+=head2 Semi-Private Methods
+
+The remaining methods are meant for use within subclasses of String::Validator::Common. They are not preceded with _ characters because they are being exposed from SVC to the inheriting class.
 
 =head2 new
 
-Modules Using String Validator Common use its' new method and then extend the
-attributes in their own new methods.
+Modules Using String Validator Common extend the attributes in their own new methods.
 
  use String::Validator::Common;
  sub new {
@@ -162,13 +161,11 @@ attributes in their own new methods.
  return $self ;
  }
 
-=head1 Methods String::Validator::Common provides
-
 =head2 Check
 
 Check is a stub subroutine, that you will replace in any Validator Module you write
 with the code to validate the string. Is_Valid and IsNot_Valid base their results on Check. Check returns $self->{error}, if there are no errors this will be 0. When you
-replace Check in your Validator Module you should implement the same behaviour so that IsValid and IsNot_Valid work. Although Check does not begin with an underscore you should consider it a private method of your inheriting class.
+replace Check in your Validator Module you should implement the same behaviour so that IsValid and IsNot_Valid work. 
 
 =head2 IsNot_Valid
 
@@ -184,11 +181,9 @@ A String::Validator contains two error variables error and errstring. When an
 error is found, simply pass a brief description to this method to increment
 the errorcount, and append the present description to the errstring.
 
- if ( 1 != 2 ) { $self->IncreaseErr( qq /1 Still Doesn't equal 2!/ ) }
+ if ( 1 != 2 ) { $self->IncreaseErr( q/1 Still Doesn't equal 2!/ ) }
 
 =head2 Start
-
-This method is typically used at the beginning of a Check Routine, and although it does not begin with an _ it should considered a private method of your inheriting class.
 
 This method initializes three key values: $self->{errstring} ,
 $self->{error}, and $self->{string} to NULL, 0, NULL. If no errors are found
@@ -216,6 +211,10 @@ Provides these methods for inheritance as described in the String::Validator doc
 =head2 is_valid, isnot_valid, errcnt, errstr, string
 
 Permit LowerCase invokation of these methods.
+
+=head1 BUGS
+
+Please report any bugs or feature requests through the web interface at L<https://github.com/brainbuz/String-Validator/issues>. I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
 =cut
 
