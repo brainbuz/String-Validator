@@ -156,6 +156,8 @@ sub version { &String::Validator::Common::Version() }
 
 =head1 String::Validator::Common Methods and Usage
 
+=head2 new
+
 Modules Using String Validator Common use its' new method and then extend the
 attributes in their own new methods.
 
@@ -172,10 +174,6 @@ attributes in their own new methods.
  }
 
 =head1 Methods String::Validator::Common provides
-
-=head2 errcnt, errstr, new, string, version
-
-These methods are described in the String::Validator Master Module and implemented here.
 
 =head2 Check
 
@@ -228,9 +226,9 @@ Provides these methods for inheritance as described in the String::Validator doc
 
 Version returns the internal version number of the module.
 
-=head2 version, is_valid, isnot_valid, errcnt, errstr
+=head2 version, is_valid, isnot_valid, errcnt, errstr, string
 
-Allow LowerCase invokation of these methods.
+Permit LowerCase invokation of these methods.
 
 =cut
 
