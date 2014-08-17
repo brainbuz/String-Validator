@@ -13,17 +13,12 @@ diag(
     "Testing String::Validator::Common $String::Validator::Common::VERSION, Perl $], $^X"
 );
 
-my $version = $String::Validator::Common::VERSION;
-is( $Validator->Version(), $version, "We are on version $version of Common" );
-is( $Validator->version(), $version,
-    'check the lowercase alias to ->version' );
-
 SKIP: {
     skip "Your Perl is too old for this test", 1 unless $] >= 5.014;
 
     package String::Validator::Common::TestClass ;
 
-        our $VERSION = 0.16;
+       our $VERSION = 0.16;
 
         sub new {
             my $class = shift;
@@ -33,26 +28,17 @@ SKIP: {
             return $self;
         }
         sub now { return localtime() }
-        sub is { my $self = shift; return $self->isa }
 
-        #sub is {  return __Package__ ; }
-
-    package ordinary;
-use Test::More; 
+    package notestclass;
+    use Test::More; 
     my $newclass = String::Validator::Common::TestClass->new();
     ok( $newclass, "newclass evaluates as true" );
     is( $newclass->now(), localtime(), "now method returns localtime" );
-
     is( $newclass->isa('String::Validator::Common::TestClass'),
         1, 'new object isa String::Validator::Common::TestClass' );
-
-    #require Exporter ;
-    my $Vers = $newclass->Version();
-
-    #my $Vers = $newclass->is() ;
-    note("newclass isa: $Vers");
-    note( $newclass->{class} );
-
+    is( $String::Validator::Common::TestClass::VERSION, 
+        0.16, 
+        'Check version of new class is 0.16');
 }
 
 done_testing;

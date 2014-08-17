@@ -6,8 +6,6 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = 1.00;
-
 =pod
 
 =encoding UTF-8
@@ -15,10 +13,6 @@ our $VERSION = 1.00;
 =head1 NAME
 
 String::Validator::Common - Routines shared by String::Validator Modules.
-
-=head1 VERSION
-
-version 1.00
 
 =head1 DESCRIPTION
 
@@ -140,17 +134,12 @@ sub String {
     return $self->{string};
 }
 
-# Serious todo version needs to return all SV class versions
-# for loaded modules.
-sub Version { return $VERSION }
-
 # The lowercase version of methods.
 sub errcnt      { my $self = shift; $self->Errcnt() }
 sub errstr      { my $self = shift; $self->Errstr() }
 sub isnot_valid { my $self = shift; $self->IsNot_Valid() }
 sub is_valid    { my $self = shift; $self->Is_Valid() }
 sub string      { my $self = shift; $self->String() }
-sub version { &String::Validator::Common::Version() }
 
 =pod
 
@@ -179,7 +168,7 @@ attributes in their own new methods.
 
 Check is a stub subroutine, that you will replace in any Validator Module you write
 with the code to validate the string. Is_Valid and IsNot_Valid base their results on Check. Check returns $self->{error}, if there are no errors this will be 0. When you
-replace Check in your Validator Module you should implement the same behaviour so that IsValid and IsNot_Valid work. 
+replace Check in your Validator Module you should implement the same behaviour so that IsValid and IsNot_Valid work. Although Check does not begin with an underscore you should consider it a private method of your inheriting class.
 
 =head2 IsNot_Valid
 
@@ -187,7 +176,7 @@ Takes a string and optionally a second string (if you want to make sure two copi
 
 =head2 Is_Valid
 
-Takes a string and optionally a second string (if you want to make sure two copies of a string are identical as well). Runs the Check subroutine and returns 1 if Check returned 0, and 0 if Check returned a true value. If you want ->Errcnt() count or ->Errstr you will need to request them via there methods before another string is processed.
+Takes a string and optionally a second string (if you want to make sure two copies of a string are identical as well). Runs the Check subroutine and returns 1 if Check returned 0, and 0 if Check returned a true value. If you want ->Errcnt() count or ->Errstr you will need to request them via their methods before another string is processed.
 
 =head2 IncreaseErr
 
@@ -199,6 +188,8 @@ the errorcount, and append the present description to the errstring.
 
 =head2 Start
 
+This method is typically used at the beginning of a Check Routine, and although it does not begin with an _ it should considered a private method of your inheriting class.
+
 This method initializes three key values: $self->{errstring} ,
 $self->{error}, and $self->{string} to NULL, 0, NULL. If no errors are found
 error and errstring will remain 0 and NULL. string will be used to hold
@@ -206,7 +197,7 @@ the string being evaluated. Arguments are the
 string to be evaluated and optionally a second string to be compared with the
 first. If the strings are mismatched the sub will return 99, and string will
 remain NULL, the inheriting module should immediately return the error and
-not contine.
+not contine. 
 
 =head2 Length
 
@@ -222,11 +213,7 @@ CheckCommon is just a shortcut to run Start and Length.
 
 Provides these methods for inheritance as described in the String::Validator documentation.
 
-=head2 Version
-
-Version returns the internal version number of the module.
-
-=head2 version, is_valid, isnot_valid, errcnt, errstr, string
+=head2 is_valid, isnot_valid, errcnt, errstr, string
 
 Permit LowerCase invokation of these methods.
 

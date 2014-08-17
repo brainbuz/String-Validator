@@ -14,10 +14,6 @@ A base module for use in creating new String Validators.
 
 String::Validator::Common - Routines shared by String::Validator Modules.
 
-# VERSION
-
-version 1.00
-
 # String::Validator::Common Methods and Usage
 
 ## new
@@ -51,7 +47,7 @@ Takes a string and optionally a second string (if you want to make sure two copi
 
 ## Is\_Valid
 
-Takes a string and optionally a second string (if you want to make sure two copies of a string are identical as well). Runs the Check subroutine and returns 1 if Check returned 0, and 0 if Check returned a true value. If you want ->Errcnt() count or ->Errstr you will need to request them via there methods before another string is processed.
+Takes a string and optionally a second string (if you want to make sure two copies of a string are identical as well). Runs the Check subroutine and returns 1 if Check returned 0, and 0 if Check returned a true value. If you want ->Errcnt() count or ->Errstr you will need to request them via their methods before another string is processed.
 
 ## IncreaseErr
 
@@ -86,11 +82,7 @@ CheckCommon is just a shortcut to run Start and Length.
 
 Provides these methods for inheritance as described in the String::Validator documentation.
 
-## Version
-
-Version returns the internal version number of the module.
-
-## version, is\_valid, isnot\_valid, errcnt, errstr, string
+## is\_valid, isnot\_valid, errcnt, errstr, string
 
 Permit LowerCase invokation of these methods.
 
