@@ -21,7 +21,7 @@ is( $Validator->version(), $version,
 SKIP: {
     skip "Your Perl is too old for this test", 1 unless $] >= 5.014;
 
-    package String::Validator::Common::TestClass {
+    package String::Validator::Common::TestClass ;
 
         our $VERSION = 0.16;
 
@@ -37,8 +37,8 @@ SKIP: {
 
         #sub is {  return __Package__ ; }
 
-    }
-
+    package ordinary;
+use Test::More; 
     my $newclass = String::Validator::Common::TestClass->new();
     ok( $newclass, "newclass evaluates as true" );
     is( $newclass->now(), localtime(), "now method returns localtime" );
