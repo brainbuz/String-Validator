@@ -6,14 +6,6 @@ String::Validator - A Collection of Routines for validating and transforming str
 
 version 1.00
 
-# NAME 
-
-String::Validator
-
-# VERSION
-
-version 1.00
-
 # Description
 
 A Collection of Routines for validating and transforming strings
@@ -29,7 +21,7 @@ Since as often as not you're not just validating strings, but also
 trying to get them into a specific format, many String::Validator Modules
 will do this.
 
-### This Module is Empty
+### The String::Validator Module
 
 The Core Module, String::Validator is empty. It contains some common
 documentation, and all other String::Validator Modules are dependencies

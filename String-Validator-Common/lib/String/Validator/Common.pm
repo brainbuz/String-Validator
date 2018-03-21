@@ -153,7 +153,7 @@ Modules Using String Validator Common extend the attributes in their own new met
  sub new {
  my $class = shift ;
  my $self = { @_ } ;
- use base ( 'String::Validator::Common' ) ;
+ use parent ( 'String::Validator::Common' ) ;
  unless ( defined $self->{ some_param } )
    { $self->{ some_param } = 'somedefault'; }
  ...

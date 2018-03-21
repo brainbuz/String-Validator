@@ -3,12 +3,9 @@ package String::Validator;
 use 5.006;
 use strict;
 use warnings;
+our $VERSION=1.01;
 
 # ABSTRACT: A Collection of Routines for validating and transforming strings
-
-=head1 NAME 
-
-String::Validator
 
 =head1 Description
 
@@ -25,7 +22,7 @@ Since as often as not you're not just validating strings, but also
 trying to get them into a specific format, many String::Validator Modules
 will do this.
 
-=head3 This Module is Empty
+=head3 The String::Validator Module
 
 The Core Module, String::Validator is empty. It contains some common
 documentation, and all other String::Validator Modules are dependencies
@@ -98,6 +95,6 @@ wrappers around other validation modules.
 
 =cut
 
-return 0;
+1; 
 
-1; # End of Validator
+# End of Validator
