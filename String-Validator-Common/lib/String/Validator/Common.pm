@@ -5,12 +5,29 @@ package String::Validator::Common;
 use 5.008;
 use strict;
 use warnings;
+no warnings 'uninitialized';
+use Data::Printer;
+
+sub _Messages {
+    # Common's messages will always be used
+    my $messages = {
+        strings_not_match => "Strings don\'t match.",
+        tooshort => "Does not meet requirement: Min Length ",
+        toolong =>  " Does not meet requirement: Max Length ",
+    };
+    my ( $lang, $cat ) = (@_);
+        for my $Common ( keys %{$lang->{Common}}) {
+            $messages->{$Common} = $lang->{Common}{$Common};
+        }
+    return $messages;
+}
 
 sub new {
     my $class = shift;
     my $self  = {@_};
     bless $self, $class;
     $self->{class} = $class;
+    $self->{messages} = _Messages( $self->{language} ) ;
     $self->_Init();
     return $self;
 }
@@ -43,7 +60,7 @@ sub Start {
     no warnings 'uninitialized';
     if ( 0 == length $string2 ) { }
     elsif ( $string1 ne $string2 ) {
-        $self->IncreaseErr('Strings don\'t match.');
+        $self->IncreaseErr( $self->{messages}{strings_not_match});
         return 99;
     }
     $self->{string} = $string1;
@@ -54,20 +71,16 @@ sub Length {
     my $self   = shift;
     my $string = $self->{string};
     if ( length( $self->{string} ) < $self->{min_len} ) {
-        $self->IncreaseErr( "Length of "
-              . length( $self->{string} )
-              . " Does not meet requirement: Min Length "
-              . $self->{min_len}
-              . "." );
+        $self->IncreaseErr(
+            $self->{messages}{tooshort} . $self->{min_len}
+              );
         return $self->{error};
     }
     if ( $self->{max_len} ) {
         if ( length( $self->{string} ) > $self->{max_len} ) {
-            $self->IncreaseErr( "Length of "
-                  . length( $self->{string} )
-                  . " Does not meet requirement: Max Length "
-                  . $self->{max_len}
-                  . "." );
+            $self->IncreaseErr(
+                $self->{messages}{toolong} . $self->{max_len}
+                );
             return $self->{error};
         }
     }
@@ -165,7 +178,7 @@ Modules Using String Validator Common extend the attributes in their own new met
 
 Check is a stub subroutine, that you will replace in any Validator Module you write
 with the code to validate the string. Is_Valid and IsNot_Valid base their results on Check. Check returns $self->{error}, if there are no errors this will be 0. When you
-replace Check in your Validator Module you should implement the same behaviour so that IsValid and IsNot_Valid work. 
+replace Check in your Validator Module you should implement the same behaviour so that IsValid and IsNot_Valid work.
 
 =head2 IsNot_Valid
 
@@ -192,7 +205,7 @@ the string being evaluated. Arguments are the
 string to be evaluated and optionally a second string to be compared with the
 first. If the strings are mismatched the sub will return 99, and string will
 remain NULL, the inheriting module should immediately return the error and
-not contine. 
+not contine.
 
 =head2 Length
 

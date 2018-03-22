@@ -4,7 +4,7 @@ String::Validator::Common - Base Module for creating new String::Validator Modul
 
 # VERSION
 
-version 1.01
+version 1.02
 
 # DESCRIPTION
 
@@ -28,7 +28,7 @@ Modules Using String Validator Common extend the attributes in their own new met
     sub new {
     my $class = shift ;
     my $self = { @_ } ;
-    use base ( 'String::Validator::Common' ) ;
+    use parent ( 'String::Validator::Common' ) ;
     unless ( defined $self->{ some_param } )
       { $self->{ some_param } = 'somedefault'; }
     ...
@@ -40,7 +40,7 @@ Modules Using String Validator Common extend the attributes in their own new met
 
 Check is a stub subroutine, that you will replace in any Validator Module you write
 with the code to validate the string. Is\_Valid and IsNot\_Valid base their results on Check. Check returns $self->{error}, if there are no errors this will be 0. When you
-replace Check in your Validator Module you should implement the same behaviour so that IsValid and IsNot\_Valid work. 
+replace Check in your Validator Module you should implement the same behaviour so that IsValid and IsNot\_Valid work.
 
 ## IsNot\_Valid
 
@@ -67,7 +67,7 @@ the string being evaluated. Arguments are the
 string to be evaluated and optionally a second string to be compared with the
 first. If the strings are mismatched the sub will return 99, and string will
 remain NULL, the inheriting module should immediately return the error and
-not contine. 
+not contine.
 
 ## Length
 
