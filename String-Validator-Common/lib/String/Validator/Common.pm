@@ -11,14 +11,15 @@ use Data::Printer;
 sub _Messages {
     # Common's messages will always be used
     my $messages = {
-        strings_not_match => "Strings don\'t match.",
-        tooshort => "Does not meet requirement: Min Length ",
-        toolong =>  " Does not meet requirement: Max Length ",
+        common_strings_not_match => "Strings don\'t match.",
+        common_tooshort => "Does not meet requirement: Min Length ",
+        common_toolong =>  " Does not meet requirement: Max Length ",
     };
-    my ( $lang, $cat ) = (@_);
-        for my $Common ( keys %{$lang->{Common}}) {
-            $messages->{$Common} = $lang->{Common}{$Common};
+    for my $lang (@_) {
+        for my $c ( keys %{$lang}) {
+            $messages->{$c} = $lang->{$c};
         }
+    }
     return $messages;
 }
 
@@ -27,7 +28,7 @@ sub new {
     my $self  = {@_};
     bless $self, $class;
     $self->{class} = $class;
-    $self->{messages} = _Messages( $self->{language} ) ;
+    $self->{messages} = _Messages( $self->{language}, $self->{custom_messages} ) ;
     $self->_Init();
     return $self;
 }
@@ -60,7 +61,7 @@ sub Start {
     no warnings 'uninitialized';
     if ( 0 == length $string2 ) { }
     elsif ( $string1 ne $string2 ) {
-        $self->IncreaseErr( $self->{messages}{strings_not_match});
+        $self->IncreaseErr( $self->{messages}{common_strings_not_match});
         return 99;
     }
     $self->{string} = $string1;
@@ -72,14 +73,14 @@ sub Length {
     my $string = $self->{string};
     if ( length( $self->{string} ) < $self->{min_len} ) {
         $self->IncreaseErr(
-            $self->{messages}{tooshort} . $self->{min_len}
+            $self->{messages}{common_tooshort} . $self->{min_len}
               );
         return $self->{error};
     }
     if ( $self->{max_len} ) {
         if ( length( $self->{string} ) > $self->{max_len} ) {
             $self->IncreaseErr(
-                $self->{messages}{toolong} . $self->{max_len}
+                $self->{messages}{common_toolong} . $self->{max_len}
                 );
             return $self->{error};
         }

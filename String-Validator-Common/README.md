@@ -4,7 +4,7 @@ String::Validator::Common - Base Module for creating new String::Validator Modul
 
 # VERSION
 
-version 1.02
+version 1.20
 
 # DESCRIPTION
 
@@ -97,7 +97,7 @@ John Karr <brainbuz@brainbuz.org>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2014 by John Karr.
+This software is Copyright (c) 2014,2018 by John Karr.
 
 This is free software, licensed under:
 
