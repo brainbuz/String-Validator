@@ -30,7 +30,7 @@ is ( $Validator->Check( $string, $string ), 2,
 note( $Validator->Errstr() ) ;
 
 like( 	$Validator->Errstr(),
-		qr/Length of 10 Does not meet requirement/,
+		qr/Does not meet requirement: Max Length 9/,
 		'The error string should tell us it is too long.') ;
 like( 	$Validator->Errstr(),
 		qr/punct is limited to fewer than 3/,

@@ -31,7 +31,7 @@ is ( $Validator->Check( '123456768^' ), 0, 	'1234567689^ passes types.' ) ;
 note('Checking length') ;
 is ( $Validator->Check( 'Short' ), 1, 	'Short is too short.' ) ;
 like( 	$Validator->{ errstring },
-		qr/Length of 5 Does not meet requirement/,
+		qr/Does not meet requirement: Min Length 6/,
 		'The error string should tell us it is too short.') ;
 #print "******\n", $Validator->{ errstring }, "\n************\n" ;
 
@@ -39,7 +39,7 @@ is ( $Validator->Check( 'SlartibartifastoriousIS31chrLNG'), 0, '31 character str
 is ( $Validator->Check( 'SlartibartifastoriousIS32chrL)NG'), 0, '32 character string passes.') ;
 is ( $Validator->Check( 'SlartibartifastoriousIS0ch^rL)NGSlartibartifastoriousIS65ch^rL)NG'), 1, '33 character string fails.') ;
 like( 	$Validator->{ errstring },
-		qr/Length of 65 Does not meet requirement/,
+		qr/Does not meet requirement: Max Length 64/,
 		'The error string should tell us it is too long.') ;
 
 done_testing();

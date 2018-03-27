@@ -6,7 +6,7 @@ use warnings;
 no warnings qw(uninitialized) ;
 use String::Validator::Common ;
 
-our $VERSION = '0.94';
+our $VERSION = '1.94';
 
 =pod
 
@@ -16,7 +16,7 @@ String::Validator::Password - Check a string against a number of common password
 
 =head1 VERSION
 
-Version 0.94
+Version 1.94
 
 =head1 SYNOPSIS
 
@@ -127,6 +127,8 @@ sub new {
     $self->{ error } = 0 ;
     $self->{errstring} = '' ;
     bless $self, $class ;
+    $self->{messages}
+        = String::Validator::Common::Messages( $self->{language}, $self->{custom_messages} );
     return $self ;
 }
 

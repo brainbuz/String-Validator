@@ -3,7 +3,7 @@ package String::Validator;
 use 5.006;
 use strict;
 use warnings;
-our $VERSION=1.01;
+our $VERSION=1.91;
 
 # ABSTRACT: A Collection of Routines for validating and transforming strings
 
@@ -75,12 +75,16 @@ and will be documented in their own POD.
      maybe
  if ( $Validator->IsNot_Valid('ThisString', 'RepeatThisString') { do something }
  say  $Validator->String ;
- 
+
 =head2 CamelCase lowercase
 
 The base class String::Validator::Common provides both the CamelCase and lowercase
 versions of the methods it provides for use by the end user of the inheriting module,
 this is done to make it even more convenient.
+
+=head1 Customizing with Language and Custom Messages.
+
+As of Version 2.0 the ->new Method to takes two optional parameters: language and custom_messages, which are expected to be a hash of message names and messages. String::Validator::Language contains
 
 =head1 Making Validator Better
 
@@ -93,8 +97,14 @@ about dependency on other modules that do validation just suggest.
 If you read the sub-modules you'll see that many of them are just
 wrappers around other validation modules.
 
+If you use String Validator in a Language other than English and don't see your language in String::Validator::Language, or that it is missing some messages, Submit a translation patch for String::Validator::Language.
+
+=head1 Bug Reports and Patches
+
+Please submit Bug Reports and Patches via https://github.com/brainbuz/String-Validator.
+
 =cut
 
-1; 
+1;
 
 # End of Validator
