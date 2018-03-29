@@ -1,6 +1,10 @@
-Revision history for String-Validor
+Revision history for String-Validator-Password
 
-0.94	February 21, 2012 
+1.94    March 28, 2018
+    enabled support of language and message customization
+	removed support for limiting number of a type of character while fixing a bug
+	with deny_num.
+0.94	February 21, 2012
 	Resolved missing dependency in Makefile.
 0.93	February 20, 2012
 	Refactored common code to base class.

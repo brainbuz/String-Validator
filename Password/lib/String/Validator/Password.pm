@@ -42,17 +42,17 @@ String::Validator for general documentation.
 SVP knows about four classes of character -- B<uc> (Upper Case), B<lc> (Lower Case),
 B<num> (Digits), and B<punct> (Everything Else). Types can be required or denied.
 Thus these 8 arguments
-B<require_lc>, B<require_uc>, B<require_nums>, B<require_punct>, B<deny_punct>,
-B<deny_lc>, B<deny_uc>, B<deny_nums>, all of which take a numeric argument, and all of
+B<require_lc>, B<require_uc>, B<require_num>, B<require_punct>, B<deny_punct>,
+B<deny_lc>, B<deny_uc>, B<deny_num>, all of which take a numeric argument, and all of
 which default to 0 if omitted.
 
 When requiring and denying classes of characters the values of 0 and 1 work as expected,
 where 0 means not to check this condition at all and 1 means to accept or reject based on
 the presence of just 1 instance of the type. However, when used to set an amount, require
-is interpreted as require at least X of this type, while deny is deny if X or more
-are encountered. require_lc => 2 will result in a string with 2 or more lowercase characters
-passing the test. deny_lc => 2 will result in a string with 2 lowercase characters being
-rejected, but would pass a string with 1 lowercase character.
+is interpreted as require at least X of this type, while deny is deny the character type
+is encountered. require_lc => 2 will result in a string with 2 or more lowercase characters
+passing the test. deny_lc => 2 will result in any string with lowercase characters being
+rejected.
 
 =head3 Minimum number of Classes of Character
 
@@ -104,18 +104,40 @@ Then to check a password you might write something like this:
 
 =cut
 
+my $password_messages = {
+	password_mintypes => sub {
+		my $self = shift @_;
+		return "Input contained $self->{types_found} types of character, $self->{min_types} are required.";
+	},
+	password_minoftype => sub {
+		my ( $required, $type ) = @_;
+		if ( $type eq 'num') { $type = 'numeric'}
+		return "At least $required characters of type $type is required.";
+	},
+	password_typeprohibit => sub {
+		my $type = shift @_;
+		if ( $type eq 'num') { $type = 'numeric'}
+		return "character type $type is prohibited."
+	},
+	password_typelimit => sub {
+		my ($type, $limit) = @_;
+		if ( $type eq 'num') { $type = 'numeric'}
+		return "$type is limited to fewer than $limit" ;
+	},
+};
+
 sub new {
     my $class = shift ;
     my $self = { @_ } ;
     use base ( 'String::Validator::Common' ) ;
     unless ( defined $self->{ require_lc } )     { $self->{ require_lc } = 0 };
     unless ( defined $self->{ require_uc } )     { $self->{ require_uc } = 0 };
-    unless ( defined $self->{ require_nums } )   { $self->{ require_nums } = 0 };
+    unless ( defined $self->{ require_num } )   { $self->{ require_num } = 0 };
     unless ( defined $self->{ require_punct } )  { $self->{ require_punct } = 0 };
     unless ( defined $self->{ deny_punct } ) 	 { $self->{ deny_punct } = 0 };
     unless ( defined $self->{ deny_lc } )        { $self->{ deny_lc } = 0 };
     unless ( defined $self->{ deny_uc } )        { $self->{ deny_uc } = 0 };
-    unless ( defined $self->{ deny_nums } )      { $self->{ deny_nums } = 0 };
+    unless ( defined $self->{ deny_num } )      { $self->{ deny_num } = 0 };
     unless ( defined $self->{ min_types } )	 	 { $self->{ min_types } = 2 };
     unless ( defined $self->{ min_len } )        { $self->{ min_len } = 6 };
     unless ( defined $self->{ max_len } )        { $self->{ max_len } = 64 };
@@ -128,7 +150,8 @@ sub new {
     $self->{errstring} = '' ;
     bless $self, $class ;
     $self->{messages}
-        = String::Validator::Common::Messages( $self->{language}, $self->{custom_messages} );
+        = String::Validator::Common::Messages(
+        		$password_messages, $self->{language}, $self->{custom_messages} );
     return $self ;
 }
 
@@ -150,35 +173,30 @@ sub Check{
 	$self->{ types_found } = 0;
     for ( qw / num_lc num_uc num_num num_punct / ) {
         if ( $self->{ $_ } ) { $self->{ types_found }++ }  }
-    if ( $self->{types_found} < $self->{ min_types } ) {
-	$self->IncreaseErr(
-	    "$self->{types_found} types were found, $self->{min_types} required.") ; }
+	if ( $self->{types_found} < $self->{ min_types } ) {
+		$self->IncreaseErr(
+			$self->{messages}{password_mintypes}->( $self ));
+		}
     foreach my $type ( qw /lc num uc punct/ ) {
 		my $required = 'require_' . $type ;
 		my $denied = 'deny_' . $type ;
 		my $num = 'num_' . $type ;
 		unless ( $self->{ $required } <= $self->{ $num } ) {
 			$self->IncreaseErr(
-			"At least $self->{ $required } of $type is required.") }
-# If denied is 0, all strings are >= 0 not just those where
-# type is present. So don't check if denied is false (0).
-		if ( $self->{ $denied } == 1 ) {
+				$self->{messages}{password_minoftype}->(
+					$self->{ $required }, $type ) ) }
+		if ( $self->{ $denied }  ) {
 			if ( $self->{ $num } )
-				{ $self->IncreaseErr( "$type is prohibited.") } }
+				{ $self->IncreaseErr(
+					$self->{messages}{password_typeprohibit}->($type) ) } }
 		elsif ( $self->{ $denied } > 1 ) {
 			if ( $self->{ $denied } <= $self->{ $num } ) {
-				$self->IncreaseErr( "$type is limited to fewer than " . $self->{ $denied } )
+				$self->IncreaseErr(
+					$self->{messages}{password_typelimit}->(
+						$type, $self->{ $denied } ) )
 			}	}
 	} #foreach ( lc num uc punct ).
 
-#     if ( length($string1) < $self->{min_len} ) {
-# 		$self->IncreaseErr( "Password Length of " . length( $string1 ) .
-# 		" Does not meet requirement: Min Length " . $self->{min_len} . "." ) ;
-# 		}
-# 	if ( length($string1) > $self->{max_len} ) {
-# 		$self->IncreaseErr( "Password Length of " . length( $string1 ) .
-# 		" Does not meet requirement: Max Length " . $self->{max_len} . "." ) ;
-# 		}
 return $self->{ error } ;
 }
 
@@ -197,42 +215,15 @@ Please report any bugs or feature requests to C<bug-string-validator-password at
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=String-Validator-Password>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
-
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc Validator
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Validator>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Validator>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/Validator>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/Validator/>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
+    perldoc String::Validator::Password
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2012 John Karr.
+Copyright 2012, 2018 John Karr.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

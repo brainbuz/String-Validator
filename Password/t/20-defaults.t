@@ -16,7 +16,8 @@ is ( $Validator->Check( 'aBC123*', 'aBC123*' ), 0,
 	'A simple password that passes the default rules.' ) ;
 note( 'Checking against default min_types and check internal counters for types.') ;
 is ( $Validator->IsNot_Valid( '1234567689' ),
-	"1 types were found, 2 required.\n" , 	'1234567689 fails types.' ) ;
+	"Input contained 1 types of character, 2 are required.\n" ,
+	'1234567689 fails types.' ) ;
 note( "last test types found $Validator->{ types_found }" ) ;
 
 is ( $Validator->{ types_found }, 1, 'Internal num_types counter should be 1.' ) ;
