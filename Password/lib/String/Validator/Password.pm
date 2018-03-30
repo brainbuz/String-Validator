@@ -4,7 +4,7 @@ use 5.006;
 use strict;
 use warnings;
 no warnings qw(uninitialized) ;
-use String::Validator::Common ;
+use String::Validator::Common;
 
 our $VERSION = '1.94';
 
@@ -211,9 +211,7 @@ John Karr, C<< <brainbuz at brainbuz.org> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-string-validator-password at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=String-Validator-Password>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+Please submit Bug Reports and Patches via https://github.com/brainbuz/String-Validator.
 
 =head1 SUPPORT
 

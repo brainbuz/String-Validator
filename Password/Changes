@@ -1,6 +1,6 @@
 Revision history for String-Validator-Password
 
-1.94    March 28, 2018
+1.95    March 28, 2018
     enabled support of language and message customization
 	removed support for limiting number of a type of character while fixing a bug
 	with deny_num.

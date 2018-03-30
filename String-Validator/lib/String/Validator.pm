@@ -84,18 +84,23 @@ this is done to make it even more convenient.
 
 =head1 Customizing with Language and Custom Messages.
 
-As of Version 2.0 the ->new Method to takes two optional parameters: language and custom_messages, which are expected to be a hash of message names and messages. String::Validator::Language contains
+As of Version 2.0 the ->new Method to takes two optional parameters: language and custom_messages, which are expected to be a hash of message names and messages, in some cases the messages are code_refs. String::Validator::Language contains translation modules. You may also pass a hash over-riding the messages of a String::Validator with custom_messages. If you want to write customzed messages in a Validator Module, obtain a list of the messages, by using Data::Dumper or Data::Printer against an object of that validator; without any languages loaded.
+
+ my $TranslatedValidator =
+     String::Validator::SomeValidator->new(
+         language=> String::Validator::Language::CHACKOBSA->new,
+         custom_messages => {
+         	somevalidator_sandworm => 'Shai-Halud'});
+
+See String::Validator::Language for a list of available languages.
 
 =head1 Making Validator Better
 
 Everything Validator does is a waste of time (if you had to do it yourself).
 So if you find you've wasted time validating something that fits
 with the Validator theme, write it up and send it in. If you think
-Validator does a poor job of something, send us a better solution.
-If you already made a module even better, Validator is all
-about dependency on other modules that do validation just suggest.
-If you read the sub-modules you'll see that many of them are just
-wrappers around other validation modules.
+Validator does a poor job of something, send a better solution.
+If you already made a module even better, just wrap it up as a Validator.
 
 If you use String Validator in a Language other than English and don't see your language in String::Validator::Language, or that it is missing some messages, Submit a translation patch for String::Validator::Language.
 
