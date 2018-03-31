@@ -1,5 +1,7 @@
 Revision history for String-Validator-Phone-NANP
 
+1.90    March 30, 2018
+	Update to support custom messages
 0.96    March 25, 2012
         Added exchange method. Raised version to match rest of group.
 0.10    Feb 26, 2012

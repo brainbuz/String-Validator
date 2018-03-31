@@ -1,22 +1,18 @@
 package String::Validator::Phone::NANP;
 
-use 5.006;
+use 5.008;
 use strict;
 use warnings;
-use String::Validator::Common ;
+use String::Validator::Common 1.90;
 use Number::Phone ;
+
+# ABSTRACT: Validate North American Phone Numbers
 
 =head1 NAME
 
 String::Validator::Phone::NANP - Check a Phone Number (North American Numbering Plan)!
 
-=head1 VERSION
-
-Version 0.96
-
 =cut
-
-our $VERSION = '0.96';
 
 sub new {
     my $class = shift ;
@@ -24,7 +20,7 @@ sub new {
     use base ( 'String::Validator::Common' ) ;
     unless ( defined $self->{ alphanum } ) { $self->{ alphanum } = 0 } ;
     # disable length checking.
-    $self->{ min_len } = 0 ; $self->{ max_len } = 0 ;    
+    $self->{ min_len } = 0 ; $self->{ max_len } = 0 ;
     bless $self, $class ;
     return $self ;
 }
@@ -96,11 +92,11 @@ sub Areacode {
 	my $self = shift ;
 	return ( $self->{ areacode } ) ;
 	}
-	
+
 sub Exchange {
 	my $self = shift ;
 	return ( $self->{ exchange } ) ;
-	}	
+	}
 
 sub Local {
 	my $self = shift ;
@@ -139,16 +135,16 @@ String::Validator::Common for information on the base String::Validator Class.
 
 =head2 Parameters to New with (default) behaviour.
 
- alphanum    (OFF) : Allow Alphanumeric formats. 
+ alphanum    (OFF) : Allow Alphanumeric formats.
 
 =head2 Original, String, International, Areacode, Parens, Local
 
 Returns:
 
-Original: the Orignial string provided, 
+Original: the Orignial string provided,
 
 String: the internal representations of the phone number, which
-is in the format of AREA-EXCHANGE-NUMBER, (the most commonly used representation in the United 
+is in the format of AREA-EXCHANGE-NUMBER, (the most commonly used representation in the United
 States).
 
 International: Prepends 1- in front of the string.
@@ -166,13 +162,13 @@ number evaluated was not valid it returns 0.
 
  use String::Validator::Phone::NANP ;
  my $Validator = String::Validator::Phone::NANP->new( alphanum => 1 ) ;
- 
+
  if ( $Validator->IsNot_Valid( '6464') { say $Validator->Errstr() }
- # IsNot_Valid returns Errstr on failure. 
+ # IsNot_Valid returns Errstr on failure.
  # So the preceding and following are the same.
  my $badone = $Validator->IsNot_Valid( '999') ;
- if ( $badone ) { say "$badone' } ; 
- 
+ if ( $badone ) { say "$badone' } ;
+
  if ( $Validator->Is_Valid( '646-SG7-6464' ) { say "good" }
  say $Validator->Areacode ; # print the Areacode.
  my $PhoneNum = $Validator->Number_Phone ; # Get a Number Phone object.
@@ -180,7 +176,7 @@ number evaluated was not valid it returns 0.
 
 =head1 ToDo
 
-The major TO DO items are to provide String::Validator::Phone modules for other numbering 
+The major TO DO items are to provide String::Validator::Phone modules for other numbering
 schemes and to fully encapsulate Number::Phone.
 
 =head1 AUTHOR
