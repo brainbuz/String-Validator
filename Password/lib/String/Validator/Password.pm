@@ -1,12 +1,12 @@
 package String::Validator::Password;
 
-use 5.006;
+# ABSTRACT: String::Validator Password Checking Module.
+
+use 5.008;
 use strict;
 use warnings;
 no warnings qw(uninitialized) ;
-use String::Validator::Common;
-
-our $VERSION = '1.94';
+use String::Validator::Common 1.90;
 
 =pod
 
@@ -15,8 +15,6 @@ our $VERSION = '1.94';
 String::Validator::Password - Check a string against a number of common password rules.
 
 =head1 VERSION
-
-Version 1.94
 
 =head1 SYNOPSIS
 
@@ -119,11 +117,6 @@ my $password_messages = {
 		if ( $type eq 'num') { $type = 'numeric'}
 		return "character type $type is prohibited."
 	},
-	password_typelimit => sub {
-		my ($type, $limit) = @_;
-		if ( $type eq 'num') { $type = 'numeric'}
-		return "$type is limited to fewer than $limit" ;
-	},
 };
 
 sub new {
@@ -150,7 +143,7 @@ sub new {
     $self->{errstring} = '' ;
     bless $self, $class ;
     $self->{messages}
-        = String::Validator::Common::Messages(
+        = String::Validator::Common::_Messages(
         		$password_messages, $self->{language}, $self->{custom_messages} );
     return $self ;
 }
@@ -160,6 +153,7 @@ sub new {
 # Is/IsNot_Valid. May be invoked directly.
 sub Check{
     my ( $self, $string1, $string2 ) = @_ ;
+die "$string1 ??? $string2 "    ;
     if ( $self->CheckCommon( $string1, $string2 ) == 99 ) {
         return $self->{ error } }
 # The match operator cannot be directly used to count matches.

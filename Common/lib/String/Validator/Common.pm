@@ -14,7 +14,7 @@ my $common_messages = {
     common_toolong           => " Does not meet requirement: Max Length ",
 };
 
-sub Messages {
+sub _Messages {
     my $messages = {} ;
     for my $msg ( $common_messages, @_) {
         for my $c ( keys %{$msg} ) {
@@ -30,7 +30,7 @@ sub new {
     bless $self, $class;
     $self->{class} = $class;
     $self->{messages}
-        = Messages( $self->{language}, $self->{custom_messages} );
+        = _Messages( $self->{language}, $self->{custom_messages} );
     $self->_Init();
     return $self;
 }
@@ -136,11 +136,11 @@ sub String {
 }
 
 # The lowercase version of methods.
-sub errcnt      { my $self = shift; $self->Errcnt() }
-sub errstr      { my $self = shift; $self->Errstr() }
-sub isnot_valid { my $self = shift; $self->IsNot_Valid() }
-sub is_valid    { my $self = shift; $self->Is_Valid() }
-sub string      { my $self = shift; $self->String() }
+sub errcnt      { my $self = shift; $self->Errcnt( @_) }
+sub errstr      { my $self = shift; $self->Errstr( @_) }
+sub isnot_valid { my $self = shift; $self->IsNot_Valid( @_) }
+sub is_valid    { my $self = shift; $self->Is_Valid( @_ ) }
+sub string      { my $self = shift; $self->String( @_ ) }
 
 =pod
 
