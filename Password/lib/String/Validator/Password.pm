@@ -153,9 +153,9 @@ sub new {
 # Is/IsNot_Valid. May be invoked directly.
 sub Check{
     my ( $self, $string1, $string2 ) = @_ ;
-die "$string1 ??? $string2 "    ;
-    if ( $self->CheckCommon( $string1, $string2 ) == 99 ) {
+    if ( $self->Start( $string1, $string2 ) == 99 ) {
         return $self->{ error } }
+    $self->Length;
 # The match operator cannot be directly used to count matches.
 # substitution does count replacements, and by removing all other
 # other character classes what is left over is "punct".
@@ -183,14 +183,14 @@ die "$string1 ??? $string2 "    ;
 			if ( $self->{ $num } )
 				{ $self->IncreaseErr(
 					$self->{messages}{password_typeprohibit}->($type) ) } }
-		elsif ( $self->{ $denied } > 1 ) {
-			if ( $self->{ $denied } <= $self->{ $num } ) {
-				$self->IncreaseErr(
-					$self->{messages}{password_typelimit}->(
-						$type, $self->{ $denied } ) )
-			}	}
+		# elsif ( $self->{ $denied } > 1 ) {
+		# 	if ( $self->{ $denied } <= $self->{ $num } ) {
+		# 		$self->IncreaseErr(
+		# 			$self->{messages}{password_typelimit}->(
+		# 				$type, $self->{ $denied } ) )
+		# 	}
+		# }
 	} #foreach ( lc num uc punct ).
-
 return $self->{ error } ;
 }
 
