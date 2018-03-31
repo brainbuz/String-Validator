@@ -14,6 +14,14 @@ String::Validator::Phone::NANP - Check a Phone Number (North American Numbering 
 
 =cut
 
+my $phonenanp_messages = {
+    phonenanp_not10 => sub {
+        my $D = shift; # num1, num2, len
+        return "Not a 10 digit Area-Number $D->{num1} .. $D->{num2} = $D->{len}.";
+    },
+    phonenanp_badarea => 'Invalid Number, perhaps non-existent Area Code',
+};
+
 sub new {
     my $class = shift ;
     my $self = { @_ } ;
@@ -22,6 +30,9 @@ sub new {
     # disable length checking.
     $self->{ min_len } = 0 ; $self->{ max_len } = 0 ;
     bless $self, $class ;
+    $self->{messages}
+        = String::Validator::Common::_Messages(
+                $phonenanp_messages, $self->{language}, $self->{custom_messages} );
     return $self ;
 }
 
@@ -51,7 +62,9 @@ sub _must_be10 {
     my $l = length $num2 ;
     if ( 10 == $l ) { return 1 }
     else { $self->IncreaseErr(
-        "Not a 10 digit Area-Number $num .. $num2 = $l." ) }
+        $self->{messages}{phonenanp_not10}->({
+            num1 => $num, num2 => $num2, len => $l }));
+        }
     return 0 ;
 }
 
@@ -76,11 +89,7 @@ sub Check {
     $self->{ international } = '1-' . $self->{ string } ;
     my $Phone = Number::Phone->new( $self->{ international } ) ;
     unless ( $Phone ) {
-        $self->IncreaseErr( 'Invalid Number, perhaps non-existent Area Code' ) }
-	else {
-		unless ( $Phone->is_valid ) {
-			$self->IncreaseErr( 'Invalid Number, perhaps non-existent Area Code' ) }
-		}
+        $self->IncreaseErr( $self->{messages}{phonenanp_badarea} ) }
 return $self->{ error } ;
 }
 
@@ -137,7 +146,7 @@ String::Validator::Common for information on the base String::Validator Class.
 
  alphanum    (OFF) : Allow Alphanumeric formats.
 
-=head2 Original, String, International, Areacode, Parens, Local
+=head2 Original, String, International, Areacode, Parens, Exchange, Local
 
 Returns:
 
