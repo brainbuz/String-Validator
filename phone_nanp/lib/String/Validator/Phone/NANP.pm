@@ -90,7 +90,7 @@ sub Check {
     my $Phone = Number::Phone->new( $self->{ international } ) ;
     unless ( $Phone ) {
         $self->IncreaseErr( $self->{messages}{phonenanp_badarea} ) }
-return $self->{ error } ;
+    return $self->{ error } ;
 }
 
 # sub String # is inherited from String::Validator::Common.

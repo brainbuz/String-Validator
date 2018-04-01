@@ -1,21 +1,28 @@
 package String::Validator::Email;
 
-use 5.006;
+use 5.008;
 use strict;
 use warnings;
-use String::Validator::Common ;
+no warnings 'uninitialized';
+use String::Validator::Common 1.90;
 use Regexp::Common qw /net/;
 use Net::DNS;
 use Email::Valid;
-use Email::Address;
 
-our $VERSION = '0.98';
+# ABSTRACT: String::Validator for checking Email Addresses.
 
-=head1 VERSION
+our $VERSION = '1.97';
 
-Version 0.98
 
-=cut
+my $email_messages = {
+    email_fqdn        => 'Does not appear to contain a Fully Qualified Domain Name.',
+    email_rfc822_noat => 'Missing @ symbol',
+    email_rfc822      => 'Does not look like an email address.',
+    email_tld         => 'This TLD (Top Level Domain) is not recognized.',
+    email_nomx1       => 'Mail Exchanger for ',
+    email_nomx2       => ' is missing from Public DNS. Mail cannot be delivered.',
+
+};
 
 sub new {
     my $class = shift ;
@@ -27,7 +34,7 @@ sub new {
                 { $self->{ max_len } = 64 ; }
 	# allow_ip wont work with fqdn or tldcheck
 	if ( $self->{ allow_ip } ) {
-	    $self->{ mxcheck } = 0 ; 
+	    $self->{ mxcheck } = 0 ;
 		$self->{ fqdn } = 0 ;
 		$self->{ tldcheck } = 0 ;
 		}
@@ -45,31 +52,35 @@ sub new {
         $self->{ fqdn } = 1 ; #before mx, must pass fqdn.
         $self->{ NetDNS } = Net::DNS::Resolver->new;
         }
-        
+    $self->{messages}
+        = String::Validator::Common::_Messages(
+                $email_messages, $self->{language}, $self->{custom_messages} );
     bless $self, $class ;
     return $self ;
 }
 
 # Email::Valid has very terse error codes.
-# Not an OO method must use &
+# Not an OO method
 sub _expound {
+    my $self = shift ;
     my $errors = shift || '';
     my $string = shift ;
     my $expounded = '' ;
     if ( $errors =~ m/fqdn/ ) {
-        $expounded .= 'Does not appear to contain a Fully Qualified Domain Name.' }
+        $expounded .= $self->{messages}{ email_fqdn } }
     if ( $errors =~ m/rfc822/ ) {
-        unless ( $string =~ /\@/ ) { $expounded .= 'Missing @ symbol' }
+        unless ( $string =~ /\@/ ) {
+            $expounded .= $self->{messages}{ email_rfc822_noat } }
         else {
-        $expounded .= 'Does not look like an email address.' }
+            $expounded .= $self->{messages}{ email_rfc822 } }
         }
     if ( $errors =~ m/tld/ ) {
-        $expounded .=
-        'The TLD (Top Level Domain) is not recognized.' ;
+        $string =~ m/\.(.*)$/;
+        $expounded .= "'$1' : $self->{messages}{ email_tld }" ;
         }
     if ( $errors =~ m/mx/ ) {
-    	$expounded .= "Mail Exchanger for $string " .
-            "is missing from Public DNS. Mail cannot be delivered." ;
+    	$expounded .= $self->{messages}{ email_nomx1 } . $string .
+            $self->{messages}{ email_nomx2 } ;
     	}
     return $expounded ;
 }
@@ -89,11 +100,13 @@ sub Check{
         return $self->{ error } }
     my %switchhash = %{ $self->{switchhash} } ;
     $switchhash{ -address  } = $self->{ string } ;
+    my $fail = 0;
     my $addr = Email::Valid->address( %switchhash );
-    unless ( $addr ) {
-        $self->IncreaseErr( $Email::Valid::Details ) ;
-        $self->{ expounded } = &_expound(
-            $Email::Valid::Details, $self->{ string } ) ;
+       $fail = $Email::Valid::Details unless $addr;
+    if ( $fail ) {
+        $self->IncreaseErr( $fail ) ;
+        $self->{ expounded } = $self->_expound(
+            $fail, $self->{ string } ) ;
         }
 	else {
 		unless ( $self->{ allow_ip } ) {
@@ -104,12 +117,11 @@ sub Check{
     $self->{maildomain} =~ tr/\>//d ; #clean out unwanted chars.
     if ( $self->{ mxcheck } ) {
 		if ( $self->{ error } == 0 ) {
-		    my $res = $self->{ NetDNS };
-		    unless ( mx( $res, $self->{ maildomain } ) ) {
+		    unless ( mx( $self->{ NetDNS }, $self->{ maildomain } ) ) {
                 $self->IncreaseErr( "MX" ) ;
-                $self->{ expounded } = 
-                    &_expound( 'mx', $self->{ maildomain} ) ;
-		    }    
+                $self->{ expounded } =
+                    $self->_expound( 'mx', $self->{ maildomain} ) ;
+		    }
 		}
     }
 return $self->{ error } ;
@@ -152,7 +164,7 @@ String::Validator::Common for information on the base String::Validator Class.
 Important notes -- SVE uses Email::Valid, however, tldcheck is defaulted to on.
 The choice to turn tldcheck should be obvious. The fudge and local_rules
 options are specific to aol and compuserve, and are not supported.
-Finally mxcheck is not tried if there is already an error, since Email::Valid's 
+Finally mxcheck is not tried if there is already an error, since Email::Valid's
 DNS check does not work, that is performed directly through Net::DNS.
 
 =head2 Expound

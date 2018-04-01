@@ -10,12 +10,6 @@ use String::Validator::Common 1.90;
 
 =pod
 
-=head1 NAME
-
-String::Validator::Password - Check a string against a number of common password rules.
-
-=head1 VERSION
-
 =head1 SYNOPSIS
 
 String::Validator::Password is part of the String Validator Collection. It will

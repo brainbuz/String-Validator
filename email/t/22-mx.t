@@ -1,6 +1,9 @@
 #!perl -T
 
-use Test::More tests => 10;
+use Test::More;# tests => 10;
+use Data::Printer;
+autoflush STDOUT 1;
+autoflush STDERR 1;
 
 BEGIN {
     use_ok( 'String::Validator::Email' ) || print "Bail out!\n";
@@ -19,6 +22,8 @@ my @values = values %switchhash ;
 note( "Keys    @keys" ) ;
 note( "Values  @values" ) ;
 
+ok(1);
+
 like ( $Validator->IsNot_Valid( 'bad@email' ), qr /fqdn/,
 	'bad@email Should have returned fqdn error.' ) ;
 is( $Validator->Check( 'bad@fake11.subd0ma1n.cpan.org' ),
@@ -35,12 +40,14 @@ note( $Validator->Expound() ) ;
 
 is( $Validator->Is_Valid( 'brainbuz@ghost7mail.com' ),
 	0, "ghost7mail.com made up address Is_Valid returns false" ) ;
+my $tst = $Validator->IsNot_Valid( 'brainbuz@ghost7mail.com' );
+p $tst;
 like( $Validator->IsNot_Valid( 'brainbuz@ghost7mail.com' ),
-	qr/MX/, 
+	qr/MX/,
 	"ghost7mail.com made up address IsNot_Valid returns reason of MX" ) ;
 like( $Validator->Expound(),
-	qr/Mail Exchanger for ghost7mail.com is missing/, 
-	"Expounding after previous test tells us Mail Exchanger for ghost7mail.com is missing." ) ;	
+	qr/Mail Exchanger for ghost7mail.com is missing/,
+	"Expounding after previous test tells us Mail Exchanger for ghost7mail.com is missing." ) ;
 
 done_testing() ;
 

@@ -4,7 +4,7 @@ String::Validator - A Collection of Routines for validating and transforming str
 
 # VERSION
 
-version 1.00
+version 1.90
 
 # Description
 
@@ -81,16 +81,31 @@ The base class String::Validator::Common provides both the CamelCase and lowerca
 versions of the methods it provides for use by the end user of the inheriting module,
 this is done to make it even more convenient.
 
+# Customizing with Language and Custom Messages.
+
+As of Version 2.0 the ->new Method to takes two optional parameters: language and custom\_messages, which are expected to be a hash of message names and messages, in some cases the messages are code\_refs. String::Validator::Language contains translation modules. You may also pass a hash over-riding the messages of a String::Validator with custom\_messages. If you want to write customzed messages in a Validator Module, obtain a list of the messages, by using Data::Dumper or Data::Printer against an object of that validator; without any languages loaded.
+
+    my $TranslatedValidator =
+        String::Validator::SomeValidator->new(
+            language=> String::Validator::Language::CHACKOBSA->new,
+            custom_messages => {
+                   somevalidator_sandworm => 'Shai-Halud'});
+
+See String::Validator::Language for a list of available languages.
+
 # Making Validator Better
 
 Everything Validator does is a waste of time (if you had to do it yourself).
 So if you find you've wasted time validating something that fits
 with the Validator theme, write it up and send it in. If you think
-Validator does a poor job of something, send us a better solution.
-If you already made a module even better, Validator is all
-about dependency on other modules that do validation just suggest.
-If you read the sub-modules you'll see that many of them are just
-wrappers around other validation modules.
+Validator does a poor job of something, send a better solution.
+If you already made a module even better, just wrap it up as a Validator.
+
+If you use String Validator in a Language other than English and don't see your language in String::Validator::Language, or that it is missing some messages, Submit a translation patch for String::Validator::Language.
+
+# Bug Reports and Patches
+
+Please submit Bug Reports and Patches via https://github.com/brainbuz/String-Validator.
 
 # AUTHOR
 
@@ -98,7 +113,7 @@ John Karr <brainbuz@brainbuz.org>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2014 by John Karr.
+This software is Copyright (c) 2018 by John Karr.
 
 This is free software, licensed under:
 
