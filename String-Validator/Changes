@@ -1,5 +1,6 @@
 Revision history for String-Validator
 
+2.00	April 4, 2018
 1.00    August 16, 2014 
 	Added String::Validator IP4 to dependencies.
 0.97	October 6, 2013

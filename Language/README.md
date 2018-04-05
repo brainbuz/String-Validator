@@ -4,7 +4,7 @@ String::Validator::Language - Languages for String::Validator
 
 # VERSION
 
-version 1.96
+version 2.00
 
 # SYNOPSIS
 
@@ -30,6 +30,8 @@ are in English, use it as a template for Language Customization when creating
 new Language Modules.
 
 # Acknowledgements
+
+French translation submitted by Antoine Gallavardin.
 
 # AUTHOR
 

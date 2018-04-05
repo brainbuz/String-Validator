@@ -4,7 +4,7 @@ String::Validator - A Collection of Routines for validating and transforming str
 
 # VERSION
 
-version 1.90
+version 2.00
 
 # Description
 
