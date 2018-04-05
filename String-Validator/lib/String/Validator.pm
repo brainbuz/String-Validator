@@ -1,9 +1,8 @@
 package String::Validator;
 
-use 5.006;
+use 5.008;
 use strict;
 use warnings;
-our $VERSION=1.91;
 
 # ABSTRACT: A Collection of Routines for validating and transforming strings
 

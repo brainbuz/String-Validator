@@ -1,9 +1,6 @@
 #!perl -T
 
 use Test::More;# tests => 10;
-use Data::Printer;
-autoflush STDOUT 1;
-autoflush STDERR 1;
 
 BEGIN {
     use_ok( 'String::Validator::Email' ) || print "Bail out!\n";

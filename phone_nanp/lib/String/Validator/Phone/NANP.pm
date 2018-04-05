@@ -192,12 +192,6 @@ schemes and to fully encapsulate Number::Phone.
 
 John Karr, C<< <brainbuz at brainbuz.org> >>
 
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-string-validator-phone at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=String-Validator-Phone>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
@@ -205,35 +199,15 @@ You can find documentation for this module with the perldoc command.
     perldoc String::Validator::Phone
 
 
-You can also look for information at:
+=head1 Bug Reports and Patches
 
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=String-Validator-Phone>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/String-Validator-Phone>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/String-Validator-Phone>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/String-Validator-Phone/>
-
-=back
-
+Please submit Bug Reports and Patches via https://github.com/brainbuz/String-Validator.
 
 =head1 ACKNOWLEDGEMENTS
 
-
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2012 John Karr.
+Copyright 2012, 2018 John Karr.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

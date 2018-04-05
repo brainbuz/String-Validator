@@ -229,7 +229,8 @@ Permit LowerCase invokation of these methods.
 
 =head1 BUGS
 
-Please report any bugs or feature requests through the web interface at L<https://github.com/brainbuz/String-Validator/issues>. I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
+Please report any bugs or feature requests through the web interface at L<https://github.com/brainbuz/String-Validator/issues>.
+I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
 =cut
 

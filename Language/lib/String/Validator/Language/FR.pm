@@ -23,3 +23,7 @@ sub new {
 }
 
 1;
+
+=pod
+
+For Documentation of this and other String::Validator::Langauge Modules please see String::Validator::Langauge, String::Validator::Commond, and String::Validator.
