@@ -11,9 +11,6 @@ use Email::Valid;
 
 # ABSTRACT: String::Validator for checking Email Addresses.
 
-our $VERSION = '1.97';
-
-
 my $email_messages = {
     email_fqdn        => 'Does not appear to contain a Fully Qualified Domain Name.',
     email_rfc822_noat => 'Missing @ symbol',
@@ -179,14 +176,9 @@ for returning to an end user.
  if ( $Validator->Is_Valid( 'real@address.com' ) { say "good" }
  if ( $Validator->IsNot_Valid( 'bad@address=com') { say $Validator->Errstr() }
 
-=head1 ToDo
-
-The major TO DO items are to replace Email::Valid methods, return an Email::Address object and to use it to create methods for returning information
-from an extended mail string like: Jane Brown <jane.brown@domain.com>.
-
 =head1 AUTHOR
 
-John Karr, C<< <brainbuz at brainbuz.org> >>
+John Karr, C<< <brainbuz at cpan.org> >>
 
 =head1 BUGS
 

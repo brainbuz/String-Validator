@@ -4,7 +4,7 @@ String::Validator::Email - String::Validator for checking Email Addresses.
 
 # VERSION
 
-version 1.97
+version 2.00
 
 # SYNOPSIS
 
@@ -51,14 +51,9 @@ for returning to an end user.
     if ( $Validator->Is_Valid( 'real@address.com' ) { say "good" }
     if ( $Validator->IsNot_Valid( 'bad@address=com') { say $Validator->Errstr() }
 
-# ToDo
-
-The major TO DO items are to replace Email::Valid methods, return an Email::Address object and to use it to create methods for returning information
-from an extended mail string like: Jane Brown <jane.brown@domain.com>.
-
 # AUTHOR
 
-John Karr, `<brainbuz at brainbuz.org>`
+John Karr, `<brainbuz at cpan.org>`
 
 # BUGS
 
@@ -72,29 +67,15 @@ You can find documentation for this module with the perldoc command.
 
     perldoc String::Validator::Email
 
-You can also look for information at:
+# Bug Reports and Patches
 
-- RT: CPAN's request tracker (report bugs here)
-
-    [http://rt.cpan.org/NoAuth/Bugs.html?Dist=String-Validator-Email](http://rt.cpan.org/NoAuth/Bugs.html?Dist=String-Validator-Email)
-
-- AnnoCPAN: Annotated CPAN documentation
-
-    [http://annocpan.org/dist/String-Validator-Email](http://annocpan.org/dist/String-Validator-Email)
-
-- CPAN Ratings
-
-    [http://cpanratings.perl.org/d/String-Validator-Email](http://cpanratings.perl.org/d/String-Validator-Email)
-
-- Search CPAN
-
-    [http://search.cpan.org/dist/String-Validator-Email/](http://search.cpan.org/dist/String-Validator-Email/)
+Please submit Bug Reports and Patches via https://github.com/brainbuz/String-Validator.
 
 # ACKNOWLEDGEMENTS
 
 # LICENSE AND COPYRIGHT
 
-Copyright 2012 John Karr.
+Copyright 2018, 2012 John Karr.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

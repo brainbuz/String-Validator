@@ -37,8 +37,6 @@ note( $Validator->Expound() ) ;
 
 is( $Validator->Is_Valid( 'brainbuz@ghost7mail.com' ),
 	0, "ghost7mail.com made up address Is_Valid returns false" ) ;
-my $tst = $Validator->IsNot_Valid( 'brainbuz@ghost7mail.com' );
-p $tst;
 like( $Validator->IsNot_Valid( 'brainbuz@ghost7mail.com' ),
 	qr/MX/,
 	"ghost7mail.com made up address IsNot_Valid returns reason of MX" ) ;
