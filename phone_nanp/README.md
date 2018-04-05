@@ -4,7 +4,7 @@ String::Validator::Phone::NANP - Validate North American Phone Numbers
 
 # VERSION
 
-version 1.90
+version 2.00
 
 # SYNOPSIS
 
@@ -74,41 +74,21 @@ schemes and to fully encapsulate Number::Phone.
 
 John Karr, `<brainbuz at brainbuz.org>`
 
-# BUGS
-
-Please report any bugs or feature requests to `bug-string-validator-phone at rt.cpan.org`, or through
-the web interface at [http://rt.cpan.org/NoAuth/ReportBug.html?Queue=String-Validator-Phone](http://rt.cpan.org/NoAuth/ReportBug.html?Queue=String-Validator-Phone).  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
 # SUPPORT
 
 You can find documentation for this module with the perldoc command.
 
     perldoc String::Validator::Phone
 
-You can also look for information at:
+# Bug Reports and Patches
 
-- RT: CPAN's request tracker (report bugs here)
-
-    [http://rt.cpan.org/NoAuth/Bugs.html?Dist=String-Validator-Phone](http://rt.cpan.org/NoAuth/Bugs.html?Dist=String-Validator-Phone)
-
-- AnnoCPAN: Annotated CPAN documentation
-
-    [http://annocpan.org/dist/String-Validator-Phone](http://annocpan.org/dist/String-Validator-Phone)
-
-- CPAN Ratings
-
-    [http://cpanratings.perl.org/d/String-Validator-Phone](http://cpanratings.perl.org/d/String-Validator-Phone)
-
-- Search CPAN
-
-    [http://search.cpan.org/dist/String-Validator-Phone/](http://search.cpan.org/dist/String-Validator-Phone/)
+Please submit Bug Reports and Patches via https://github.com/brainbuz/String-Validator.
 
 # ACKNOWLEDGEMENTS
 
 # LICENSE AND COPYRIGHT
 
-Copyright 2012 John Karr.
+Copyright 2012, 2018 John Karr.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
