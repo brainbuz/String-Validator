@@ -1,5 +1,7 @@
 Revision history for String-Validator-Password
 
+2.00	April 4, 2018
+	Release 2.0
 1.96    March 30, 2018 
         Found some bugs testing, cover helped find an 
         unused branch.

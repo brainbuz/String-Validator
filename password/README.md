@@ -4,7 +4,7 @@ String::Validator::Password - String::Validator Password Checking Module.
 
 # VERSION
 
-version 1.96
+version 2.00
 
 # SYNOPSIS
 
@@ -15,12 +15,6 @@ primary Negative method returns 0 if the password passes all tests, or a string
 describing the errors if it fails. The Positive Method returns 1 if the string
 passes and 0 if it fails. The ErrString method returns the errors from the last
 string processed.
-
-# NAME
-
-String::Validator::Password - Check a string against a number of common password rules.
-
-# VERSION
 
 # String::Validator Methods and Usage
 

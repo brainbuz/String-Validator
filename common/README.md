@@ -4,7 +4,7 @@ String::Validator::Common - Base Module for creating new String::Validator Modul
 
 # VERSION
 
-version 1.90
+version 2.00
 
 # DESCRIPTION
 
@@ -89,7 +89,8 @@ Permit LowerCase invokation of these methods.
 
 # BUGS
 
-Please report any bugs or feature requests through the web interface at [https://github.com/brainbuz/String-Validator/issues](https://github.com/brainbuz/String-Validator/issues). I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
+Please report any bugs or feature requests through the web interface at [https://github.com/brainbuz/String-Validator/issues](https://github.com/brainbuz/String-Validator/issues).
+I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
 # AUTHOR
 

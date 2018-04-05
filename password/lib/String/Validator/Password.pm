@@ -6,7 +6,7 @@ use 5.008;
 use strict;
 use warnings;
 no warnings qw(uninitialized) ;
-use String::Validator::Common 1.90;
+use String::Validator::Common 2.00;
 
 =pod
 
