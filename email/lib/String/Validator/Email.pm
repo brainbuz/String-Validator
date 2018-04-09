@@ -18,7 +18,6 @@ my $email_messages = {
     email_tld         => 'This TLD (Top Level Domain) is not recognized.',
     email_nomx1       => 'Mail Exchanger for ',
     email_nomx2       => ' is missing from Public DNS. Mail cannot be delivered.',
-
 };
 
 sub new {

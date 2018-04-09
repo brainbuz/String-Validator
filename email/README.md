@@ -4,7 +4,7 @@ String::Validator::Email - String::Validator for checking Email Addresses.
 
 # VERSION
 
-version 2.00
+version 2.01
 
 # SYNOPSIS
 
