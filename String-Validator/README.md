@@ -4,7 +4,7 @@ String::Validator - A Collection of Routines for validating and transforming str
 
 # VERSION
 
-version 2.00
+version 2.02
 
 # Description
 
@@ -92,6 +92,8 @@ As of Version 2.0 the ->new Method to takes two optional parameters: language an
                    somevalidator_sandworm => 'Shai-Halud'});
 
 See String::Validator::Language for a list of available languages.
+
+There are a few examples of this in the tests. The coderef form example test is in password because that module has messages that use a coderef.
 
 # Making Validator Better
 

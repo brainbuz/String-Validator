@@ -93,6 +93,8 @@ As of Version 2.0 the ->new Method to takes two optional parameters: language an
 
 See String::Validator::Language for a list of available languages.
 
+There are a few examples of this in the tests. The coderef form example test is in password because that module has messages that use a coderef.
+
 =head1 Making Validator Better
 
 Everything Validator does is a waste of time (if you had to do it yourself).
