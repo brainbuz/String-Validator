@@ -174,16 +174,9 @@ sub Check{
 				$self->{messages}{password_minoftype}->(
 					$self->{ $required }, $type ) ) }
 		if ( $self->{ $denied }  ) {
-			if ( $self->{ $num } )
+			if ( $self->{ $num } >= $self->{ $denied } )
 				{ $self->IncreaseErr(
 					$self->{messages}{password_typeprohibit}->($type) ) } }
-		# elsif ( $self->{ $denied } > 1 ) {
-		# 	if ( $self->{ $denied } <= $self->{ $num } ) {
-		# 		$self->IncreaseErr(
-		# 			$self->{messages}{password_typelimit}->(
-		# 				$type, $self->{ $denied } ) )
-		# 	}
-		# }
 	} #foreach ( lc num uc punct ).
 return $self->{ error } ;
 }

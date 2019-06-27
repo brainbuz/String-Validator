@@ -4,7 +4,7 @@ String::Validator::Password - String::Validator Password Checking Module.
 
 # VERSION
 
-version 2.00
+version 2.01
 
 # SYNOPSIS
 
@@ -133,7 +133,7 @@ John Karr <brainbuz@brainbuz.org>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2014,2018 by John Karr.
+This software is Copyright (c) 2014-2019 by John Karr.
 
 This is free software, licensed under:
 
