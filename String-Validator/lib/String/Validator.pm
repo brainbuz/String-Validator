@@ -107,7 +107,7 @@ If you use String Validator in a Language other than English and don't see your 
 
 =head1 Bug Reports and Patches
 
-Please submit Bug Reports and Patches via https://github.com/brainbuz/String-Validator.
+Please submit Bug Reports and Patches via L<https://github.com/brainbuz/String-Validator>.
 
 =cut
 
