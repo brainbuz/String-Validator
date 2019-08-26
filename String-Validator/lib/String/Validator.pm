@@ -77,7 +77,7 @@ and will be documented in their own POD.
 
 =head2 CamelCase lowercase
 
-The base class String::Validator::Common provides both the CamelCase and lowercase
+The base class L<String::Validator::Common> provides both the CamelCase and lowercase
 versions of the methods it provides for use by the end user of the inheriting module,
 this is done to make it even more convenient.
 
@@ -91,7 +91,7 @@ As of Version 2.0 the ->new Method to takes two optional parameters: language an
          custom_messages => {
          	somevalidator_sandworm => 'Shai-Halud'});
 
-See String::Validator::Language for a list of available languages.
+See L<String::Validator::Language> for a list of available languages.
 
 There are a few examples of this in the tests. The coderef form example test is in password because that module has messages that use a coderef.
 
@@ -103,7 +103,7 @@ with the Validator theme, write it up and send it in. If you think
 Validator does a poor job of something, send a better solution.
 If you already made a module even better, just wrap it up as a Validator.
 
-If you use String Validator in a Language other than English and don't see your language in String::Validator::Language, or that it is missing some messages, Submit a translation patch for String::Validator::Language.
+If you use String Validator in a Language other than English and don't see your language in L<String::Validator::Language>, or that it is missing some messages, Submit a translation patch for L<String::Validator::Language>.
 
 =head1 Bug Reports and Patches
 
