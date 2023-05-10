@@ -33,8 +33,7 @@ sub new {
             return
                 "Not a 10 digit Area-Number $D->{num1} .. $D->{num2} = $D->{len}.";
         },
-        phonenanp_badarea => 'Invalid Number, perhaps non-existent Area Code',
-
+        phonenanp_badarea => 'Invalid or unassigned Area Code. Area Codes Must be greater than 200 and all numbers containing 11 are reserved for Short Codes.',
     };
 }
 

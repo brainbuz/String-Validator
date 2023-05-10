@@ -4,7 +4,7 @@ String::Validator::Phone::NANP - Validate North American Phone Numbers
 
 # VERSION
 
-version 2.00
+version 2.04
 
 # SYNOPSIS
 

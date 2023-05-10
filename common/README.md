@@ -4,7 +4,7 @@ String::Validator::Common - Base Module for creating new String::Validator Modul
 
 # VERSION
 
-version 2.00
+version 2.04
 
 # DESCRIPTION
 

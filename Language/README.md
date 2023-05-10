@@ -4,7 +4,7 @@ String::Validator::Language - Languages for String::Validator
 
 # VERSION
 
-version 2.00
+version 2.04
 
 # SYNOPSIS
 
